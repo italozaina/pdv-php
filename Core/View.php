@@ -38,8 +38,13 @@ class View
         static $twig = null;
 
         if ($twig === null) {
-            $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__) . '/App/View');
-            $twig = new \Twig\Environment($loader);
+            $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__) . '/App/View');            
+            if (\App\Config::SHOW_ERRORS) {
+                $twig = new \Twig\Environment($loader,['debug' => true]);
+                $twig->addExtension(new \Twig\Extension\DebugExtension());
+            } else {
+                $twig = new \Twig\Environment($loader);
+            }
         }
 
         echo $twig->render($template, $args);

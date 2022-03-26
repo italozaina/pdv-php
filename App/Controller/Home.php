@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use \Core\View;
+use \App\Model\Usuario;
 
 /**
  * Home controller
@@ -28,7 +29,11 @@ class Home extends \Core\Controller
      * @return void
      */
     public function novaAction()
-    {
-        View::render('Home/nova.html');
+    {        
+        $usuarioDAO = new Usuario();
+        // $usuarioDAO->criarTabela();
+        // $usuarioDAO->dadosIniciais();
+        $result = $usuarioDAO->getAll();
+        View::renderTemplate('Home/nova.html', ['usuarios'=>$result]);
     }    
 }

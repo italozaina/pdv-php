@@ -1,1 +1,12 @@
-teste
+{% extends "base.html" %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block body %}
+
+    <h1>Usuarios</h1>
+<pre>
+    {{dump(usuarios)}}
+</pre>
+
+{% endblock %}
