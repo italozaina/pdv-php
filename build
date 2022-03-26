@@ -1,0 +1,38 @@
+#!/usr/bin/php
+<?php
+/**
+ *  BUILD 0.0.1
+ *  por: Ítalo C. Zaina
+ * 
+ *  Esta é uma aplicação de linha de comando com o objetivo de criar 
+ *  e manipular um simples framework MVC em PHP
+ *  
+ */
+$consoleHelp = "**********************************\n           BUILD 0.0.1\n       por: Ítalo C. Zaina\n**********************************\n\nEsta é uma aplicação de linha de comando\nuse -h para obter ajuda com os parametros\n";
+if($argc == 1 || $argv[1] == "-h") { // $argc = retorna a quantidade de argumentos
+    echo $consoleHelp;
+}
+else {
+    switch ($argv[1]) { // $argv = retorna um array de argumentos
+        case 'teste':
+            echo "Are you sure you want to do this?  Type 'yes' to continue: ";
+            $handle = fopen ("php://stdin","r"); // aguarda um input do usuário no terminal
+            $line = fgets($handle);
+            if(trim($line) != 'yes'){
+                echo "ABORTING!\n";
+                exit;
+            }
+            fclose($handle);
+            echo "\n"; 
+            echo "Thank you, continuing...\n";
+            break;
+        case 'info':
+            print_r(phpinfo());
+            break;
+        default:
+            echo $consoleHelp;
+            break;
+    }
+}
+
+die();

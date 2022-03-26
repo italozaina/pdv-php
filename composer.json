@@ -1,0 +1,13 @@
+{
+    "name": "italozaina/pdv-php",
+    "description": "Estrutura simples de framework PHP sob o conceito MVC",
+    "require": {
+        "twig/twig": "~3.0"
+    },    
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "App\\": "App/"
+        }
+    }
+}
