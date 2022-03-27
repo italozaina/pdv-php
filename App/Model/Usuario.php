@@ -10,6 +10,97 @@ use PDO;
 
  class Usuario extends \Core\Model 
  {
+
+    private $id;
+    private $nome;
+    private $sobrenome;
+    private $login;
+    private $senha;
+    private $acesso;
+    private $ativo;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNome(): ?string
+    {
+        return $this->nome;
+    }
+
+    public function setNome(string $nome): self
+    {
+        $this->nome = $nome;
+
+        return $this;
+    }
+
+    public function getSobrenome(): ?string
+    {
+        return $this->sobrenome;
+    }
+
+    public function setSobrenome(string $sobrenome): self
+    {
+        $this->sobrenome = $sobrenome;
+        
+        return $this;
+    }
+
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
+        
+        return $this;
+    }
+
+    public function getSenha(): ?string
+    {
+        return $this->senha;
+    }
+
+    public function setSenha(string $senha): self
+    {
+        $this->senha = $senha;
+        
+        return $this;
+    }
+
+    public function getAcesso(): ?int
+    {
+        return $this->acesso;
+    }
+
+    public function setAcesso(int $acesso): self
+    {
+        $this->acesso = $acesso;
+
+        return $this;
+    }
+
+    public function getAtivo(): ?bool
+    {
+        return $this->ativo;
+    }
+
+    public function setAtivo(bool $ativo): self
+    {
+        $this->ativo = $ativo;
+
+        return $this;
+    }
+
+    public function getNomeCompleto(): ?string
+    {
+        return $this->nome.' '.$this->sobrenome;
+    }
+
     /**
      * Get all the users as an associative array
      *
@@ -18,8 +109,9 @@ use PDO;
     public static function getAll()
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT id, nome, sobrenome FROM usuario');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $db->query('SELECT * FROM usuario');
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_CLASS,'\App\Model\Usuario');
     }
 
     public function criarTabela()

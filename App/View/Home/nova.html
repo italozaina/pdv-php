@@ -5,8 +5,13 @@
 {% block body %}
 
     <h1>Usuarios</h1>
-<pre>
-    {{dump(usuarios)}}
+    <ul>
+    {% for usuario in usuarios %}
+        <li>{{usuario.getNomeCompleto()}}</li>
+    {% endfor %}
+    </ul>
+<pre style="background-color: black; color: chartreuse; padding: 10px; border-radius: 10px;">
+{{dump(usuarios)}}
 </pre>
 
 {% endblock %}
