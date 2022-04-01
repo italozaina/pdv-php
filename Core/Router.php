@@ -62,7 +62,7 @@ class Router
      *
      * @return boolean  true if a match found, false otherwise
      */
-    public function match($url)
+    public function _match($url)
     {
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
@@ -101,9 +101,11 @@ class Router
      */
     public function dispatch($url)
     {
+        $url = substr($url,1); // remove a primira barra da rota
+        // die(var_dump($url));
         $url = $this->removeQueryStringVariables($url);
 
-        if ($this->match($url)) {
+        if ($this->_match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
             $controller = $this->getNamespace() . $controller;
@@ -114,17 +116,22 @@ class Router
                 $action = $this->params['action'];
                 $action = $this->convertToCamelCase($action);
 
-                if (preg_match('/action$/i', $action) == 0) {
-                    $controller_object->$action();
-
+                if (preg_match('/action$/i', $action) == 0) {     
+                    $metodosPermitidos = (array_key_exists('method',$this->params)) ? $this->params['method'] : ['GET','POST','PUT','DELETE','PATCH'];
+                    $metodoChamado = $_SERVER['REQUEST_METHOD'];
+                    if(in_array($metodoChamado,$metodosPermitidos)){
+                        $controller_object->$action();
+                    } else {                        
+                        throw new \Exception("O metodo HTTP $metodoChamado não é permitido.");
+                    }                    
                 } else {
-                    throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
+                    throw new \Exception("O metodo $action no controller $controller não foi possivel chamar diretamente - remova o sufixo Action para chamar este metodo");
                 }
             } else {
-                throw new \Exception("Controller class $controller not found");
+                throw new \Exception("Classe controller $controller não foi encontrada");
             }
         } else {
-            throw new \Exception('No route matched.', 404);
+            throw new \Exception('Nenhuma rota combinada/encontrada.', 404);
         }
     }
 
@@ -180,13 +187,8 @@ class Router
     protected function removeQueryStringVariables($url)
     {
         if ($url != '') {
-            $parts = explode('&', $url, 2);
-
-            if (strpos($parts[0], '=') === false) {
-                $url = $parts[0];
-            } else {
-                $url = '';
-            }
+            $parts = explode('?', $url, 2);
+            $url = $parts[0];
         }
 
         return $url;

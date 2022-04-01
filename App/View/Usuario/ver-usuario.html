@@ -4,15 +4,13 @@
 
 {% block body %}
 
-    <h1>Usuarios</h1>
+    <h1>Usuario</h1>
     <ul>
-    {% for usuario in usuarios %}
         <li>{{usuario.getNomeCompleto()}}</li>
-    {% endfor %}
     </ul>
 <pre style="background-color: black; color: chartreuse; padding: 10px; border-radius: 10px;">
 metodo: {{metodo}}
-{{dump(usuarios)}}
+{{dump(usuario)}}
 </pre>
 
 {% endblock %}

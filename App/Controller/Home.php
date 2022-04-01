@@ -8,7 +8,6 @@ use \App\Model\Usuario;
 /**
  * Home controller
  *
- * PHP version 7.0
  */
 class Home extends \Core\Controller
 {
@@ -34,6 +33,25 @@ class Home extends \Core\Controller
         // $usuarioDAO->criarTabela();
         // $usuarioDAO->dadosIniciais();
         $result = $usuarioDAO->getAll();
-        View::renderTemplate('Home/nova.html', ['usuarios'=>$result]);
+
+        $metodoHTTP = $_SERVER['REQUEST_METHOD'];
+
+        View::renderTemplate('Home/nova.html', ['usuarios'=>$result, 'metodo'=> $metodoHTTP]);
+    }    
+
+    /**
+     * exemplo de tratar e renderizar com variavel de rota
+     *
+     * @return void
+     */
+    public function umUsuarioAction()
+    {
+        $usuarioDAO = new Usuario();        
+
+        $result = $usuarioDAO->getOne($this->route_params['id']);
+
+        $metodoHTTP = $_SERVER['REQUEST_METHOD'];
+
+        View::renderTemplate('Usuario/ver-usuario.html', ['usuario'=>$result, 'metodo'=> $metodoHTTP]);
     }    
 }

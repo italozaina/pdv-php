@@ -114,6 +114,20 @@ use PDO;
         return $stmt->fetchAll(PDO::FETCH_CLASS,'\App\Model\Usuario');
     }
 
+    /**
+     * Retorna um objeto de usuario pelo ID
+     *
+     * @return array
+     */
+    public static function getOne($id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM usuario WHERE id = :id');
+        $stmt->bindParam(':id',$id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchObject('\App\Model\Usuario');
+    }
+
     public function criarTabela()
     {
         $db = static::getDB();
