@@ -19,13 +19,23 @@ set_exception_handler('Core\Error::exceptionHandler');
 $router = new Core\Router();
 // die(var_dump($_SERVER['REQUEST_URI']));
 // Adicionar as rotas
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
-$router->add('teste/{id:\d+}', ['controller' => 'Home', 'action' => 'umUsuario']);
-$router->add('nova', ['controller' => 'Home', 'action' => 'nova']);
+$router->add('', ['controller' => 'UsuarioController', 'action' => 'index']);
+$router->add('login', ['controller' => 'SecurityController', 'action' => 'login']);
+$router->add('painel', ['controller' => 'PainelController', 'action' => 'index']);
+$router->add('teste/{id:\d+}', ['controller' => 'UsuarioController', 'action' => 'umUsuario']);
+$router->add('nova', ['controller' => 'UsuarioController', 'action' => 'nova']);
 
 // $router->add('{controller}/{action}');
 
-// die(var_dump($router->getRoutes()));
 
-// $router->dispatch($_SERVER['QUERY_STRING']);
+/**
+ * Exemplo básico de login
+ */
+session_start();
+
+if (!isset($_SESSION['usuarioLogado']) && !in_array($_SERVER['REQUEST_URI'], ['/login'])) {
+    header('Location: /login');
+    exit;
+}
+
 $router->dispatch($_SERVER['REQUEST_URI']);

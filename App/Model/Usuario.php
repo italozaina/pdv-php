@@ -128,6 +128,21 @@ use PDO;
         return $stmt->fetchObject('\App\Model\Usuario');
     }
 
+    /**
+     * Retorna um objeto de usuario pelo ID
+     *
+     * @return array
+     */
+    public static function logar($dados)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM usuario WHERE login = :login AND senha = :senha');
+        $stmt->bindValue(':login',$dados['login']);
+        $stmt->bindValue(':senha',$dados['senha']);
+        $stmt->execute();
+        return $stmt->fetchObject('\App\Model\Usuario');
+    }
+
     public function criarTabela()
     {
         $db = static::getDB();
@@ -169,4 +184,9 @@ use PDO;
 
         return true;
     }    
+
+    public function __toString()
+    {
+        return $this->nome.' '.$this->sobrenome;
+    }
  }
