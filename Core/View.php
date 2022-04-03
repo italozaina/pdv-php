@@ -45,6 +45,7 @@ class View
             } else {
                 $twig = new \Twig\Environment($loader);
             }
+            $twig->addGlobal('session', $_SESSION);
         }
 
         echo $twig->render($template, $args);

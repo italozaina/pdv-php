@@ -5,7 +5,7 @@
 {% block htmlcss %}class="has-navbar-fixed-top"{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="assets/css/admin.css">
 {% endblock %}
     
 {% block body %}
@@ -13,8 +13,8 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="container">    
         <div class="navbar-brand">
-            <a class="navbar-item" href="/painel">
-                <span class="icon"><i class="fa-solid fa-cash-register"></i></span>&nbsp;&nbsp;PDV-PHP            
+            <a class="navbar-item has-text-info" href="/">
+                <span class="icon mr-1"><i class="fa-solid fa-cash-register"></i></span>PDV-PHP            
             </a>
         
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -57,13 +57,17 @@
             </div>
         
             <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                <a class="button is-light">
-                      Sair &nbsp;&nbsp;<span class="icon has-text-danger"><i class="fa-solid fa-right-from-bracket"></i></span>
-                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <span class="icon has-text-info mr-1"><i class="fa-solid fa-user"></i></span>{{session.usuarioLogado}}
+                    </a>
+            
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/logout">
+                            <span class="icon has-text-danger mr-1"><i class="fa-solid fa-right-from-bracket"></i></span> Sair
+                        </a>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

@@ -19,8 +19,9 @@ set_exception_handler('Core\Error::exceptionHandler');
 $router = new Core\Router();
 // die(var_dump($_SERVER['REQUEST_URI']));
 // Adicionar as rotas
-$router->add('', ['controller' => 'UsuarioController', 'action' => 'index']);
+$router->add('', ['controller' => 'PainelController', 'action' => 'index']);
 $router->add('login', ['controller' => 'SecurityController', 'action' => 'login']);
+$router->add('logout', ['controller' => 'SecurityController', 'action' => 'logout']);
 $router->add('painel', ['controller' => 'PainelController', 'action' => 'index']);
 $router->add('teste/{id:\d+}', ['controller' => 'UsuarioController', 'action' => 'umUsuario']);
 $router->add('nova', ['controller' => 'UsuarioController', 'action' => 'nova']);

@@ -38,4 +38,14 @@ class SecurityController extends \Core\Controller
 
         View::renderTemplate('Login/login.html', ['resp'=>$resp]);
     }
+
+    /**
+     * Deslogar
+     */
+    public function logoutAction()
+    {
+        session_destroy();
+        header('Location: /login');
+	    exit;
+    }
 }
