@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}PDV{% endblock %}
+
+{% block htmlcss %}class="has-navbar-fixed-top"{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="assets/css/admin.css">
+{% endblock %}
+    
+{% block body %}
+
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">    
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/painel">
+                <span class="icon"><i class="fa-solid fa-cash-register"></i></span>&nbsp;&nbsp;PDV-PHP            
+            </a>
+        
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+            <a class="navbar-item" href="/painel">
+                Inicio
+            </a>
+        
+            <a class="navbar-item" href="/nova">
+                Nova
+            </a>
+        
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                Gestão
+                </a>
+        
+                <div class="navbar-dropdown">
+                <a class="navbar-item">
+                    Usuarios
+                </a>
+                <a class="navbar-item">
+                    Produtos
+                </a>
+                <a class="navbar-item">
+                    Clientes
+                </a>
+                </div>
+            </div>
+            <a class="navbar-item">
+                Ponto de venda
+            </a>
+            </div>
+        
+            <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                <a class="button is-light">
+                      Sair &nbsp;&nbsp;<span class="icon has-text-danger"><i class="fa-solid fa-right-from-bracket"></i></span>
+                </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="section is-main-section">
+    <div class="container">
+        {% block main %}
+        {% endblock %}
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="level">
+            <div class="level-left"></div>
+            <div class="level-right">
+                <div class="level-item">
+                    Por: Ítalo C. Zaina &copy;{{now|date('Y')}}
+                </div>            
+            </div>
+        </div>  
+    </div>     
+</footer>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

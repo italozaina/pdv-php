@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html {% block htmlcss %}{% endblock %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="assets/bulma/css/bulma.min.css">
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    {% block stylesheets %}
+    {% endblock %}
 </head>
 <body>
     {% block body %}
+    {% endblock %}
+    {% block javascripts %}
     {% endblock %}
 </body>
 </html>
