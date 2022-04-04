@@ -1,0 +1,9 @@
+{% extends "admin.html" %}
+
+{% block title %}{{parent()}} - Usuarios{% endblock %}
+
+{% block main %}
+
+    {% include 'form.html' with {'titleForm':'Usuário'} %}
+
+{% endblock %}

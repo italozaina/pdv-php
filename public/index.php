@@ -25,6 +25,7 @@ $router->add('logout', ['controller' => 'SecurityController', 'action' => 'logou
 $router->add('painel', ['controller' => 'PainelController', 'action' => 'index']);
 $router->add('teste/{id:\d+}', ['controller' => 'UsuarioController', 'action' => 'umUsuario']);
 $router->add('nova', ['controller' => 'UsuarioController', 'action' => 'nova']);
+$router->add('usuarios', ['controller' => 'UsuarioController', 'action' => 'index']);
 
 // $router->add('{controller}/{action}');
 

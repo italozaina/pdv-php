@@ -102,6 +102,22 @@ use PDO;
     }
 
     /**
+     * Retorna um array com os tipos de cada coluna desta classe 
+     * e seus respectivos campos para gerar formulário e tabela
+     */
+    public function getType(){
+        return [
+            new Type('id',['form'=>'none']),
+            new Type('nome',['label'=>'Nome','form'=>'input']),
+            new Type('sobrenome',['label'=>'Sobrenome','form'=>'input']),
+            new Type('login',['label'=>'Login','form'=>'input']),
+            new Type('senha',['label'=>'Senha','form'=>'input','type'=>'password']),
+            new Type('acesso',['label'=>'Acesso','form'=>'select','options'=>[1=>'Administrador', 2=>'Gerente',3=>'Vendedor']]),
+            new Type('ativo',['label'=>'Ativo?','form'=>'checkbox']),
+        ];     
+    }
+
+    /**
      * Get all the users as an associative array
      *
      * @return array
@@ -155,6 +171,22 @@ use PDO;
             acesso INTEGER,
             ativo INTEGER
           );");
+    }
+
+    public function insert($dados)
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("INSERT INTO usuario (nome, sobrenome, login, senha, acesso, ativo)
+        VALUES (:nome,:sobrenome,:login,:senha,:acesso,:ativo)");
+        $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':sobrenome', $dados['sobrenome'], PDO::PARAM_STR);
+        $stmt->bindParam(':login', $dados['login'], PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
+        $stmt->bindParam(':acesso', $dados['acesso'], PDO::PARAM_INT);
+        $stmt->bindParam(':ativo', $dados['ativo'], PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 
     public function dadosIniciais()

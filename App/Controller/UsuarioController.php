@@ -19,7 +19,22 @@ class UsuarioController extends \Core\Controller
      */
     public function indexAction()
     {
-        View::renderTemplate('Home/index-teste.html');
+        $usuarioDAO = new Usuario();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $dados = $_POST;
+            if(array_key_exists('ativo',$dados)){
+                $dados['ativo'] = 1;
+            } else {
+                $dados['ativo'] = 0;
+            }
+            $dados['senha'] = md5($dados['senha']);
+
+            $resp = $usuarioDAO->insert($dados);
+            die(var_dump($resp));
+        }
+
+        View::renderTemplate('Usuario/index.html',['entity'=>$usuarioDAO]);
     }
 
     /**

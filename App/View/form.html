@@ -1,0 +1,69 @@
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+        <span class="icon mr-1"><i class="fa-solid fa-rectangle-list"></i></span>
+        {{titleForm|default('Formulário')}}
+        </p>
+    </header>
+    <div class="card-content">
+        <form method="{{method|default('POST')}}">
+        {% for field in entity.getType() %}
+            {# <p>{{field.getKey()}}</p> #}
+        {% if field.getOpt().form != 'none' %}
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">{{field.getOpt().label}}</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {% if field.getOpt().form == 'textarea' %}
+                        <textarea name="{{field.getKey()}}" class="textarea"></textarea>   
+                        {% elseif field.getOpt().form == 'select' %}
+                        <div class="select is-fullwidth">
+                            <select name="{{field.getKey()}}">
+                            {% for value, option in field.getOpt().options %}
+                            <option value="{{value}}">{{option}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>                     
+                        {% elseif field.getOpt().form == 'checkbox' %}
+                        <label class="b-checkbox checkbox">
+                            <input name="{{field.getKey()}}" type="checkbox">
+                            <span class="check is-primary"></span>
+                            <span class="control-label">Marcar/Desmarcar</span>
+                        </label>
+                        {% else %}
+                        <input name="{{field.getKey()}}" class="input" type="{{field.getOpt().type|default('text')}}">
+                        {% endif %}
+                    </div>                
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <hr>
+        <div class="field is-horizontal">
+            <div class="field-label">
+            <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body">
+            <div class="field">
+                <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                    <span>Enviar</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <button type="button" class="button is-danger is-outlined">
+                    <span>Limpar</span>
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
