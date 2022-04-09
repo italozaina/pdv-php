@@ -1,3 +1,13 @@
+body{
+    min-height: calc(100vh - 56px);    
+    display: flex;
+    flex-direction: column;
+}
+
+footer{
+    margin-top: auto;
+}
+
 nav.navbar{
     border-top: 4px solid #276cda;
     margin-bottom: 1rem;
