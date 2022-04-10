@@ -13,7 +13,7 @@ class UsuarioController extends \Core\Controller
 {
 
     /**
-     * Show the index page
+     * Todos os usuários
      *
      * @return void
      */
@@ -34,7 +34,34 @@ class UsuarioController extends \Core\Controller
             die(var_dump($resp));
         }
 
-        View::renderTemplate('Usuario/index.html',['entity'=>$usuarioDAO]);
+        $entities = $usuarioDAO->getAllPagination();
+
+        View::renderTemplate('Usuario/index.html',['entity'=>$usuarioDAO,'entities'=>$entities]);
+    }
+
+    /**
+     * Novo usuário
+     *
+     * @return void
+     */
+    public function insertAction()
+    {
+        $usuarioDAO = new Usuario();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $dados = $_POST;
+            if(array_key_exists('ativo',$dados)){
+                $dados['ativo'] = 1;
+            } else {
+                $dados['ativo'] = 0;
+            }
+            $dados['senha'] = md5($dados['senha']);
+
+            $resp = $usuarioDAO->insert($dados);
+            die(var_dump($resp));
+        }
+
+        View::renderTemplate('Usuario/form.html',['entity'=>$usuarioDAO]);
     }
 
     /**

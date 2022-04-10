@@ -18,3 +18,9 @@ footer{
     background-color: #fff !important;
     padding: 0.495rem 1.5rem !important;
 }
+
+.image img {
+    display: block;
+    height: auto;
+    width: 100%;
+}

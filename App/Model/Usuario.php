@@ -106,14 +106,14 @@ use PDO;
      * e seus respectivos campos para gerar formulário e tabela
      */
     public function getType(){
-        return [
-            new Type('id',['form'=>'none']),
+        return [            
             new Type('nome',['label'=>'Nome','form'=>'input']),
             new Type('sobrenome',['label'=>'Sobrenome','form'=>'input']),
             new Type('login',['label'=>'Login','form'=>'input']),
             new Type('senha',['label'=>'Senha','form'=>'input','type'=>'password']),
             new Type('acesso',['label'=>'Acesso','form'=>'select','options'=>[1=>'Administrador', 2=>'Gerente',3=>'Vendedor']]),
             new Type('ativo',['label'=>'Ativo?','form'=>'checkbox']),
+            new Type('id',['form'=>'none']),
         ];     
     }
 
@@ -128,6 +128,19 @@ use PDO;
         $stmt = $db->query('SELECT * FROM usuario');
         // return $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $stmt->fetchAll(PDO::FETCH_CLASS,'\App\Model\Usuario');
+    }
+
+    /**
+     * Get all the users as an associative array
+     *
+     * @return array
+     */
+    public static function getAllPagination($page=1,$itensPerPage=10)
+    {
+        $db = static::getDB();
+        $stmt = $db->query('SELECT * FROM usuario');
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // return $stmt->fetchAll(PDO::FETCH_CLASS,'\App\Model\Usuario');
     }
 
     /**

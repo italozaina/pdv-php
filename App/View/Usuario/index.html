@@ -4,6 +4,10 @@
 
 {% block main %}
 
-    {% include 'form.html' with {'titleForm':'Usuário'} %}
+<div class="has-text-right mb-2">
+    <a href="usuarios/novo" class="button is-info">Novo usuário</a>
+</div>
+    
+    {% include 'table.html' with {'titleTable':'Usuários'} %}
 
 {% endblock %}
