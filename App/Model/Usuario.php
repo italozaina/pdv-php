@@ -135,12 +135,28 @@ use PDO;
      *
      * @return array
      */
-    public static function getAllPagination($page=1,$itensPerPage=10)
+    public static function getAllPagination($pagina=1,$itensPerPage=10)
+    {
+        $offset = $itensPerPage*($pagina-1);
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM usuario LIMIT :itensPag OFFSET :offset');
+        $stmt->bindParam(':itensPag',$itensPerPage, PDO::PARAM_INT);
+        $stmt->bindParam(':offset',$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Total de linhas encontradas
+     *
+     * @return int
+     */
+    public static function getTotal()
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT * FROM usuario');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // return $stmt->fetchAll(PDO::FETCH_CLASS,'\App\Model\Usuario');
+        $stmt = $db->prepare('SELECT COUNT(id) as total FROM usuario');
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
     /**

@@ -21,22 +21,21 @@ class UsuarioController extends \Core\Controller
     {
         $usuarioDAO = new Usuario();
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $dados = $_POST;
-            if(array_key_exists('ativo',$dados)){
-                $dados['ativo'] = 1;
-            } else {
-                $dados['ativo'] = 0;
-            }
-            $dados['senha'] = md5($dados['senha']);
+        $itensPerPage = 10;
+        if(isset($_GET['itensPerPage']))
+            $itensPerPage = $_GET['itensPerPage'];
+        
+        $pagina = 1;
+        if(isset($_GET['pagina']))
+            $pagina = $_GET['pagina'];
 
-            $resp = $usuarioDAO->insert($dados);
-            die(var_dump($resp));
-        }
+        $entities = $usuarioDAO->getAllPagination($pagina, $itensPerPage);
 
-        $entities = $usuarioDAO->getAllPagination();
+        $total = $usuarioDAO->getTotal();
 
-        View::renderTemplate('Usuario/index.html',['entity'=>$usuarioDAO,'entities'=>$entities]);
+        $totalPaginas = ceil($total / $itensPerPage);      
+
+        View::renderTemplate('Usuario/index.html',['entity'=>$usuarioDAO,'entities'=>$entities,'total'=>$total,'pagina'=>$pagina,'itensPerPage'=>$itensPerPage,'totalPaginas'=>$totalPaginas]);
     }
 
     /**
@@ -58,7 +57,11 @@ class UsuarioController extends \Core\Controller
             $dados['senha'] = md5($dados['senha']);
 
             $resp = $usuarioDAO->insert($dados);
-            die(var_dump($resp));
+            if($resp){
+                header('Location: /usuarios');
+	            exit;
+            }
+            // die(var_dump($resp));
         }
 
         View::renderTemplate('Usuario/form.html',['entity'=>$usuarioDAO]);

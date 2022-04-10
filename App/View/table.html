@@ -57,15 +57,15 @@
               <div class="level-left">
                 <div class="level-item">
                   <div class="buttons has-addons">
-                    <button type="button" class="button is-active">1</button>
-                    <button type="button" class="button">2</button>
-                    <button type="button" class="button">3</button>
+                    {% for i in 1..totalPaginas %}
+                    <a href="?pagina={{i}}" class="button{{ i == pagina ? ' is-active':''}}">{{i}}</a>
+                    {% endfor %}
                   </div>
                 </div>
               </div>
               <div class="level-right">
                 <div class="level-item">
-                  <small>Página 1 de 3</small>
+                  <small>Exibindo {{((pagina-1)*itensPerPage)+(entities|length)}} de {{total}} registros.</small>
                 </div>
               </div>
             </div>
